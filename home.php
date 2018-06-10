@@ -60,7 +60,7 @@
             </div>
             <div class="panel-footer">
               <span>posted <?php echo $post['created_at'];?> by nicholaskajoh</span> 
-              <span class="pull-right"><a class="text-danger" href="php/delete-post.php?=<?php echo $post['id'] ?>">[delete]</a></span>
+              <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>">[delete]</a></span>
             </div>
           </div>
           <?php 

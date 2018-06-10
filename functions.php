@@ -14,4 +14,9 @@
         }
         //echo '<h1 style="color: green;">Connected to db</h1>';
     }
+
+    function redirect_to($url){
+        header("Location: " . $url);
+        exit();
+    }
 ?>
