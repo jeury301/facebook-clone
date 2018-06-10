@@ -1,4 +1,4 @@
-<?php require_once “functions.php”; ?>
+<?php require_once "functions.php"; ?>
 <?php include "header.php" ?>
   <!-- main -->
   <main class="container">
