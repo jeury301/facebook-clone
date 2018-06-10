@@ -34,7 +34,7 @@
       </div>
       <div class="col-md-6">
         <!-- post form -->
-        <form method="post" action="">
+        <form method="post" action="php/create-post.php">
           <div class="input-group">
             <input class="form-control" type="text" name="content" placeholder="Make a post...">
             <span class="input-group-btn">
