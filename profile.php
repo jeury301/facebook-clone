@@ -1,4 +1,16 @@
 <?php require_once "functions.php"; ?>
+<?php 
+  db_connect();
+
+  $sql = "SELECT id, username, status, profile_image_url, location FROM users WHERE username = ?";
+  $statement = $conn->prepare($sql);
+  $statement->bind_param('s', $_GET['username']);
+  $statement->execute();
+  $statement->store_result();
+  $statement->bind_result($id, $username, $status, $profile_image_url, $location);
+  $statement->fetch();
+
+?>
 <?php include "header.php" ?>
   <!-- main -->
   <main class="container">
@@ -42,16 +54,32 @@
 
         <!-- timeline -->
         <div>
-          <!-- post -->
+           <!-- post -->
+          <?php 
+              $sql = "SELECT * FROM posts WHERE user_id = {$id} ORDER BY created_at DESC";
+              $result = $conn->query($sql);
+
+              if($result->num_rows >0){
+                  while($post = $result->fetch_assoc()){
+          ?>
           <div class="panel panel-default">
             <div class="panel-body">
-              <p>Hello people! This is my first FaceClone post. Hurray!!!</p>
+              <p><?php echo $post['content'];?></p>
             </div>
             <div class="panel-footer">
-              <span>posted 2017-5-27 20:45:01 by nicholaskajoh</span> 
-              <span class="pull-right"><a class="text-danger" href="#">[delete]</a></span>
+              <span>posted <?php echo $post['created_at'];?> by nicholaskajoh</span> 
+              <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>">[delete]</a></span>
             </div>
           </div>
+          <?php 
+              }
+            } else {
+          ?>
+          <p class="text-danger">No posts! yet! </p>
+          <?php 
+            }
+            $conn->close();
+          ?>
           <!-- ./post -->
         </div>
         <!-- ./timeline -->

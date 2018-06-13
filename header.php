@@ -15,7 +15,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="home.php">Home</a></li>
-                <li><a href="profile.php">Profile</a></li>
+                <li><a href="profile.php?username=<?php echo $_SESSION['user_username']?>">Profile</a></li>
                 <li><a href="php/logout.php">Logout</a>
             </ul>
         </div>
