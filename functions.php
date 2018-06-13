@@ -1,4 +1,6 @@
 <?php 
+    session_start();
+
     function db_connect(){
         global $conn; // db connection variable
         $db_server = "127.0.0.1"; // use 127.0.0.1 instead of localhost
@@ -18,6 +20,16 @@
     function redirect_to($url){
         header("Location: " . $url);
         exit();
+    }
+
+    function is_auth(){
+        return isset($_SESSION['user_id']);
+    }
+
+    function check_auth(){
+        if(!is_auth()){
+            redirect_to("/index.php?logged_in=false");
+        }
     }
 
 ?>

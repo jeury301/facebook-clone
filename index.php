@@ -17,7 +17,7 @@
         <?php endif; ?>
 
         <!-- login form -->
-        <form method="post" action="home.html">
+        <form method="post" action="php/login.php">
           <div class="form-group">
             <input class="form-control" type="text" name="username" placeholder="Username">
           </div>
