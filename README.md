@@ -4,6 +4,6 @@ Building a facebook clone following the following tutorial:  https://goo.gl/hWHW
 # Run locally
 
 ``` bash
-# php -S localhost:8080
+php -S localhost:8080
 ```
 
