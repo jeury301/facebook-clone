@@ -44,8 +44,8 @@
             <img src="img/my_avatar.png" class="media-object" style="width: 128px; height: 128px;">
           </div>
           <div class="media-body">
-            <h2 class="media-heading">nicholaskajoh</h2>
-            <p>Status: I love to code!, Location: Nigeria</p>
+            <h2 class="media-heading"><?php echo $username?></h2>
+            <p>Status: <?php if($status){echo $status;}else{echo "No status yet!";}?>, Location: <?php echo $location?></p>
           </div>
         </div>
         <!-- user profile -->
@@ -67,7 +67,7 @@
               <p><?php echo $post['content'];?></p>
             </div>
             <div class="panel-footer">
-              <span>posted <?php echo $post['created_at'];?> by nicholaskajoh</span> 
+              <span>posted <?php echo $post['created_at'];?> by <?php echo $username;?></span> 
               <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>">[delete]</a></span>
             </div>
           </div>
