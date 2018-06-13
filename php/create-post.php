@@ -5,13 +5,13 @@
 
     // sql statement to insert a new POSTS record
     // the ? indicates that the statement is expecting a parameter
-    $sql = "INSERT INTO posts (content, user_id) VALUES (?, 0)";
+    $sql = "INSERT INTO posts (content, user_id) VALUES (?, ?)";
 
     // preparing the connection?
     $statement = $conn->prepare($sql);
 
     // binding parameters to query statement
-    $statement->bind_param('s', $_POST['content']);
+    $statement->bind_param('s', $_POST['content'], $_SESSION['user_id']);
 
     // executiing statement
     if($statement->execute()){
