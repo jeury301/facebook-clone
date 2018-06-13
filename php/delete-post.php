@@ -7,7 +7,11 @@
     $statement->bind_param("i", $_GET['id']);
 
     if($statement->execute()){
-        redirect_to("/home.php");
+        if(isset($_GET['is_profile'])){
+            redirect_to("/profile.php?=username" . $_GET['username']);
+        } else{
+            redirect_to("/home.php");
+        }
     } else {
         echo "Error: " . $conn->error;
     }
