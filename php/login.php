@@ -23,4 +23,6 @@
     } else {
        echo "Echo: " . $conn->error; 
     }
+
+    $conn->close();
 ?>

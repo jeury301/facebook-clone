@@ -20,13 +20,12 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <h4>Edit profile</h4>
-            <form method="post" action="">
+            <form method="post" action="php/edit-profile.php">
               <div class="form-group">
-                <input class="form-control" type="text" name="status" placeholder="Status" value="">
+                <input class="form-control" type="text" name="status" placeholder="Status" value="<?php echo $status?>">
               </div>
-
               <div class="form-group">
-                <input class="form-control" type="text" name="location" placeholder="Location" value="">
+                <input class="form-control" type="text" name="location" placeholder="Location" value="<?php echo $location?>">
               </div>
 
               <div class="form-group">
