@@ -10,11 +10,19 @@
         <h4>Login to start enjoying unlimited fun!</h4>
 
         <?php if(isset($_GET["registered"])): ?>
-          <div class="alert alert-warning alert-dismissible" role="alert">
+          <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Warning!</strong> Better check yourself, you're not looking too good.
+            <strong>Hurray!</strong> You have registered. Please login. 
           </div>
         <?php endif; ?>
+
+        <?php if(isset($_GET["login_error"])): ?>
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Sorry!</strong> The information you entered does not match our records. 
+          </div>
+        <?php endif; ?>
+
 
         <!-- login form -->
         <form method="post" action="php/login.php">

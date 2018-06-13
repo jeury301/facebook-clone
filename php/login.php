@@ -9,8 +9,8 @@
     $statement->bind_param('s', $_POST['username']);
     $statement->execute();
     $statement->store_result();
-    $statement->bind_result($id, $username, $password)
-    $statement->fetch()
+    $statement->bind_result($id, $username, $password);
+    $statement->fetch();
 
     if($statement->execute()){
         if(password_verify($_POST['password'], $password)){
