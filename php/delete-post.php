@@ -8,7 +8,8 @@
 
     if($statement->execute()){
         if(isset($_GET['is_profile'])){
-            redirect_to("/profile.php?=username" . $_GET['username']);
+
+            redirect_to("/profile.php?username=" . $_GET['username']);
         } else{
             redirect_to("/home.php");
         }
