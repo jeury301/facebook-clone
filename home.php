@@ -89,7 +89,7 @@
                       while($fc_user = $result->fetch_assoc()){
                         ?> 
                         <li>
-                          <a href="profile.php?username<?php echo $fc_user['username']; ?>"><?php echo $fc_user['username']; ?></a>
+                          <a href="profile.php?username=<?php echo $fc_user['username']; ?>"><?php echo $fc_user['username']; ?></a>
                           <a href="php/add-friend.php?uid=<?php echo $fc_user['id']?>">[add]</a>
                         </li>
                       <?php 

@@ -15,28 +15,34 @@
   <!-- main -->
   <main class="container">
     <div class="row">
-      <div class="col-md-3">
-        <!-- edit profile -->
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <h4>Edit profile</h4>
-            <form method="post" action="php/edit-profile.php">
-              <div class="form-group">
-                <input class="form-control" type="text" name="status" placeholder="Status" value="<?php echo $status?>">
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" name="location" placeholder="Location" value="<?php echo $location?>">
-              </div>
+      <?php 
+        if($username == $_SESSION['user_username']){
+        ?>
+          <div class="col-md-3">
+          <!-- edit profile -->
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4>Edit profile</h4>
+              <form method="post" action="php/edit-profile.php">
+                <div class="form-group">
+                  <input class="form-control" type="text" name="status" placeholder="Status" value="<?php echo $status?>">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" type="text" name="location" placeholder="Location" value="<?php echo $location?>">
+                </div>
 
-              <div class="form-group">
-                <input class="btn btn-primary" type="submit" name="update_profile" value="Save">
-              </div>
-            </form>
+                <div class="form-group">
+                  <input class="btn btn-primary" type="submit" name="update_profile" value="Save">
+                </div>
+              </form>
+            </div>
           </div>
+          <!-- ./edit profile -->
         </div>
-        <!-- ./edit profile -->
-      </div>
-      <div class="col-md-6">
+        <?php   
+        }
+        ?>
+      <div class="col-md-<?php if($username == $_SESSION['user_username']){?>6<?php } else {?>9<?php }?>">
         <!-- user profile -->
         <div class="media">
           <div class="media-left">
