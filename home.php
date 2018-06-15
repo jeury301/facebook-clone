@@ -70,7 +70,6 @@
           <p class="text-danger">No posts! yet! </p>
           <?php 
             }
-            $conn->close();
           ?>
           <!-- ./post -->
         </div>
@@ -81,12 +80,30 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <h4>add friend</h4>
-            <ul>
-              <li>
-                <a href="#">alberte</a> 
-                <a href="#">[add]</a>
-              </li>
-            </ul>
+            <?php 
+                $sql = "SELECT id, username, (SELECT COUNT(*) FROM friends WHERE friends.user_id = users.id AND friends.friend_id = {$_SESSION['user_id']}) AS is_friend FROM users WHERE id != {$_SESSION['user_id']} HAVING is_friend = 0";
+                $result = $conn->query($sql);
+
+                if($result->num_rows > 0){
+                  ?><ul><?php 
+                      while($fc_user = $result->fetch_assoc()){
+                        ?> 
+                        <li>
+                          <a href="profile.php?username<?php echo $fc_user['username']; ?>"><?php echo $fc_user['username']; ?></a>
+                          <a href="php/add-friend.php?uid=<?php echo $fc_user['id']?>">[add]</a>
+                        </li>
+                      <?php 
+                      }
+                      ?>
+                    </ul>
+                <?php
+                } else {
+                ?>
+                  <p class="text-center">No users to add!</p>
+                <?php
+                }
+                $conn->close();
+                ?>        
           </div>
         </div>
         <!-- ./add friend -->
