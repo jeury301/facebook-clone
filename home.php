@@ -157,7 +157,7 @@
                     <a href="profile.php?username=<?php echo $friend_info['username']; ?>">
                       <?php echo $friend_info['username']; ?>
                     </a>
-                    <a class="text-danger" href="#">[unfriend]</a>
+                    <a class="text-danger" href="php/remove-friend.php?friend_id=<?php echo $current_friend['friend_id']?>">[unfriend]</a>
                   </li>
                 <?php
                 }
