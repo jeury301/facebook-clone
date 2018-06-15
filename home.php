@@ -130,7 +130,6 @@
                   <p class="text-center">No users to add!</p>
                 <?php
                 }
-                $conn->close();
                 ?>        
           </div>
         </div>
@@ -140,12 +139,33 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <h4>friends</h4>
-            <ul>
-              <li>
-                <a href="#">peterpan</a> 
-                <a class="text-danger" href="#">[unfriend]</a>
-              </li>
-            </ul>
+            <?php 
+              $friends_sql = "SELECT * FROM friends WHERE user_id = {$_SESSION['user_id']}";
+              $friends_result = $conn->query($friends_sql);
+
+              if($friends_result->num_rows > 0 ){
+            ?>  <ul>
+            <?php
+                while($current_friend = $friends_result->fetch_assoc()){
+            ?>    
+                  <li>
+                    <?php 
+                      $friend_sql = "SELECT * FROM users WHERE id = {$current_friend['friend_id']}";
+                      $friend_result = $conn->query($friend_sql);
+                      $friend_info = $friend_result->fetch_assoc();
+                    ?>
+                    <a href="profile.php?username=<?php echo $friend_info['username']; ?>">
+                      <?php echo $friend_info['username']; ?>
+                    </a>
+                    <a class="text-danger" href="#">[unfriend]</a>
+                  </li>
+                <?php
+                }
+                ?>
+                </ul>
+            <?php
+            }
+            ?>
           </div>
         </div>
         <!-- ./friends -->
