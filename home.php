@@ -59,7 +59,18 @@
               <p><?php echo $post['content'];?></p>
             </div>
             <div class="panel-footer">
-              <span>posted <?php echo $post['created_at'];?> by <?php echo $_SESSION['user_username'];?></span> 
+              <span>posted <?php echo $post['created_at'];?> by 
+                <?php 
+                    // printing the user that made this post!
+                    $sql = "SELECT username FROM users WHERE id = {$post['user_id']}";
+                    $result = $conn->query($sql);
+                    
+                    if($result->num_rows > 0){
+                      while($user = $result->fetch_assoc()){
+                        echo $user['username'];
+                      }
+                    }
+                ?></span> 
               <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>">[delete]</a></span>
             </div>
           </div>
