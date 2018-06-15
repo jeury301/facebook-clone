@@ -62,16 +62,22 @@
               <span>posted <?php echo $post['created_at'];?> by 
                 <?php 
                     // printing the user that made this post!
-                    $sql = "SELECT username FROM users WHERE id = {$post['user_id']}";
-                    $result = $conn->query($sql);
-                    
-                    if($result->num_rows > 0){
-                      while($user = $result->fetch_assoc()){
+                    $sql_user = "SELECT username FROM users WHERE id = {$post['user_id']}";
+                    $result_user = $conn->query($sql_user);
+
+                    if($result_user->num_rows > 0){
+                      while($user = $result_user->fetch_assoc()){
                         echo $user['username'];
                       }
                     }
-                ?></span> 
-              <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>">[delete]</a></span>
+                ?></span>
+              <?php 
+                if($post['user_id'] == $_SESSION['user_id']){
+                ?>
+                  <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>">[delete]</a></span> 
+              <?php
+                }
+              ?> 
             </div>
           </div>
           <?php 
