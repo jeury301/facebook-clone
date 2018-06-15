@@ -11,8 +11,19 @@
         <!-- profile brief -->
         <div class="panel panel-default">
           <div class="panel-body">
-            <h4>nicholaskajoh</h4>
-            <p>I love to code!</p>
+            <h4><?php echo $_SESSION['user_username']?></h4>
+            <p>
+              <?php 
+                $sql_current_user = "SELECT status FROM users WHERE id = {$_SESSION['user_id']}";
+                $current_user = $conn->query($sql_current_user);
+                
+                if($current_user->num_rows > 0){
+                      while($final_user = $current_user->fetch_assoc()){
+                        echo $final_user['status'];
+                  }
+                }
+              ?>
+            </p>
           </div>
         </div>
         <!-- ./profile brief -->
