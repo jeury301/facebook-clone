@@ -64,7 +64,7 @@
                     <li>
                       <a href="profile.php?username=<?php echo $curr_friend_request['username'];?>"><?php echo $curr_friend_request['username'];?></a> 
                       <a class="text-success" href="php/accept-request.php?friend_id=<?php echo $curr_friend_request['id'];?>&friend_username=<?php echo $curr_friend_request['username'];?>">[accept]</a> 
-                      <a class="text-danger" href="php/decline-request.php?friend_id=<?php echo $curr_friend_request['id'];?>">[decline]</a>
+                      <a class="text-danger" href="php/decline-request.php?friend_id=<?php echo $curr_friend_request['id'];?>&friend_username=<?php echo $curr_friend_request['username'];?>">[decline]</a>
                     </li>
                   <?php 
                   }
