@@ -39,11 +39,26 @@
           <div class="panel-body">
             <h4>friend requests</h4>
             <ul>
-              <li>
-                <a href="#">johndoe</a> 
-                <a class="text-success" href="#">[accept]</a> 
-                <a class="text-danger" href="#">[decline]</a>
-              </li>
+              <?php 
+                $sql_friend_requests = "SELECT id, username, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = users.id AND friend_requests.friend_id = {$_SESSION['user_id']}) as is_request FROM users HAVING is_request = 1";
+                $result_friend_requests = $conn->query($sql_friend_requests);
+
+                if($result_friend_requests->num_rows > 0){
+                  while($curr_friend_request = $result_friend_requests->fetch_assoc()){
+                    ?>
+                    <li>
+                      <a href="profile.php?username=<?php echo $curr_friend_request['username'];?>"><?php echo $curr_friend_request['username'];?></a> 
+                      <a class="text-success" href="#">[accept]</a> 
+                      <a class="text-danger" href="#">[decline]</a>
+                    </li>
+                  <?php 
+                  }
+                } else{
+                  ?>
+                  <p>No friend request!</p>  
+                <?php
+                }
+                ?>
             </ul>
           </div>
         </div>
@@ -115,22 +130,26 @@
           <div class="panel-body">
             <h4>add friend</h4>
             <?php 
-                $sql = "SELECT id, username, (SELECT COUNT(*) FROM friends WHERE friends.user_id = users.id AND friends.friend_id = {$_SESSION['user_id']}) AS is_friend, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = {$_SESSION['user_id']} AND friend_requests.friend_id = users.id) AS request_sent FROM users WHERE id != {$_SESSION['user_id']} HAVING is_friend = 0";
+                $sql = "SELECT id, username, (SELECT COUNT(*) FROM friends WHERE friends.user_id = users.id AND friends.friend_id = {$_SESSION['user_id']}) AS is_friend, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = {$_SESSION['user_id']} AND friend_requests.friend_id = users.id) AS request_sent, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = users.id AND friend_requests.friend_id = {$_SESSION['user_id']}) AS has_request FROM users WHERE id != {$_SESSION['user_id']} HAVING is_friend = 0 AND has_request=0";
                 $result = $conn->query($sql);
 
                 if($result->num_rows > 0){
                   ?><ul><?php 
                       while($fc_user = $result->fetch_assoc()){
-                        ?> 
-                        <li>
-                          <a href="profile.php?username=<?php echo $fc_user['username']; ?>"><?php echo $fc_user['username']; ?></a>
-                          <?php 
-                            if($fc_user['request_sent'] != 1){
-                              ?>
-                              <a href="php/add-friend.php?uid=<?php echo $fc_user['id']?>">[add]</a>
-                            <?php
-                            }
+                          ?>
+                          <li>
+                              <a href="profile.php?username=<?php echo $fc_user['username']; ?>"><?php echo $fc_user['username']; ?></a>
+                          <?php
+                          if($fc_user['request_sent'] != 1){
                             ?>
+                              <a href="php/add-friend.php?uid=<?php echo $fc_user['id']?>">[add]</a>
+                          <?php
+                          } else{
+                            ?>
+                              <a href="#">[request sent]</a>
+                          <?php
+                          }
+                          ?>
                         </li>
                       <?php 
                       }
