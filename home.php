@@ -6,6 +6,12 @@
   ?>
   <!-- main -->
   <main class="container">
+    <?php if(isset($_GET["request_sent"])): ?>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Hurray!</strong> Your friend request has been sent!
+      </div>
+    <?php endif; ?>
     <div class="row">
       <div class="col-md-3">
         <!-- profile brief -->
@@ -109,7 +115,7 @@
           <div class="panel-body">
             <h4>add friend</h4>
             <?php 
-                $sql = "SELECT id, username, (SELECT COUNT(*) FROM friends WHERE friends.user_id = users.id AND friends.friend_id = {$_SESSION['user_id']}) AS is_friend FROM users WHERE id != {$_SESSION['user_id']} HAVING is_friend = 0";
+                $sql = "SELECT id, username, (SELECT COUNT(*) FROM friends WHERE friends.user_id = users.id AND friends.friend_id = {$_SESSION['user_id']}) AS is_friend, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = {$_SESSION['user_id']} AND friend_requests.friend_id = users.id) AS request_sent FROM users WHERE id != {$_SESSION['user_id']} HAVING is_friend = 0";
                 $result = $conn->query($sql);
 
                 if($result->num_rows > 0){
@@ -118,7 +124,13 @@
                         ?> 
                         <li>
                           <a href="profile.php?username=<?php echo $fc_user['username']; ?>"><?php echo $fc_user['username']; ?></a>
-                          <a href="php/add-friend.php?uid=<?php echo $fc_user['id']?>">[add]</a>
+                          <?php 
+                            if($fc_user['request_sent'] != 1){
+                              ?>
+                              <a href="php/add-friend.php?uid=<?php echo $fc_user['id']?>">[add]</a>
+                            <?php
+                            }
+                            ?>
                         </li>
                       <?php 
                       }
