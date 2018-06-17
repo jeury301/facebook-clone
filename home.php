@@ -12,6 +12,14 @@
         <strong>Hurray!</strong> Your friend request has been sent!
       </div>
     <?php endif; ?>
+
+    <?php if(isset($_GET["request_canceled"])): ?>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Hurray!</strong> Your friend request has been canceled!
+      </div>
+    <?php endif; ?>
+
     <div class="row">
       <div class="col-md-3">
         <!-- profile brief -->
@@ -37,7 +45,7 @@
         <!-- friend requests -->
         <div class="panel panel-default">
           <div class="panel-body">
-            <h4>friend requests</h4>
+            <h4>Friend Requests</h4>
             <ul>
               <?php 
                 $sql_friend_requests = "SELECT id, username, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = users.id AND friend_requests.friend_id = {$_SESSION['user_id']}) as is_request FROM users HAVING is_request = 1";
@@ -128,7 +136,7 @@
       <!-- add friend -->
         <div class="panel panel-default">
           <div class="panel-body">
-            <h4>add friend</h4>
+            <h4>Add friend</h4>
             <?php 
                 $sql = "SELECT id, username, (SELECT COUNT(*) FROM friends WHERE friends.user_id = users.id AND friends.friend_id = {$_SESSION['user_id']}) AS is_friend, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = {$_SESSION['user_id']} AND friend_requests.friend_id = users.id) AS request_sent, (SELECT COUNT(*) FROM friend_requests WHERE friend_requests.user_id = users.id AND friend_requests.friend_id = {$_SESSION['user_id']}) AS has_request FROM users WHERE id != {$_SESSION['user_id']} HAVING is_friend = 0 AND has_request=0";
                 $result = $conn->query($sql);
@@ -146,7 +154,7 @@
                           <?php
                           } else{
                             ?>
-                              <a href="#">[request sent]</a>
+                              <a class="text-danger" href="php/cancel-request.php?uid=<?php echo $fc_user['id']?>">[cancel request]</a>
                           <?php
                           }
                           ?>
@@ -169,7 +177,7 @@
         <!-- friends -->
         <div class="panel panel-default">
           <div class="panel-body">
-            <h4>friends</h4>
+            <h4>Friends</h4>
             <?php 
               $friends_sql = "SELECT * FROM friends WHERE user_id = {$_SESSION['user_id']}";
               $friends_result = $conn->query($friends_sql);

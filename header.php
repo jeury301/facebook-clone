@@ -13,11 +13,17 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="<?php if(isset($_SESSION['user_username'])){?>profile.php?username=<?php echo $_SESSION['user_username'];} else {?>index.php<?php } ?>">FaceClone</a>
             </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="profile.php?username=<?php echo $_SESSION['user_username']?>">Profile</a></li>
-                <li><a href="php/logout.php">Logout</a>
-            </ul>
+            <?php 
+                if(isset($_SESSION['user_username'])){
+                    ?>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="home.php">Home</a></li>
+                        <li><a href="profile.php?username=<?php echo $_SESSION['user_username']?>">Profile</a></li>
+                        <li><a href="php/logout.php">Logout</a>
+                    </ul>
+                <?php
+                }
+            ?>
         </div>
     </nav>
     <!-- ./nav -->

@@ -80,7 +80,7 @@
               }
             } else {
           ?>
-          <p class="text-danger">No posts! yet! </p>
+          <p class="text-danger">No posts yet! </p>
           <?php 
             }
           ?>
