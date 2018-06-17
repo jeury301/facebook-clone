@@ -95,7 +95,7 @@
         <div>
           <!-- post -->
           <?php 
-              $sql = "SELECT * FROM posts ORDER BY created_at DESC";
+              $sql = "SELECT content, created_at, user_id, (SELECT COUNT(*) FROM friends WHERE user_id = {$_SESSION['user_id']} AND friend_id = posts.user_id) as is_friend FROM posts HAVING is_friend = 1 OR user_id = {$_SESSION['user_id']} ORDER BY created_at DESC";
               $result = $conn->query($sql);
 
               if($result->num_rows >0){
