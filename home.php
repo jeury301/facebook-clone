@@ -20,6 +20,13 @@
       </div>
     <?php endif; ?>
 
+    <?php if(isset($_GET["is_message"])): ?>
+      <div class="alert alert-<?php echo $_GET['level']?> alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Hurray!</strong> <?php echo $_GET['message']?>
+      </div>
+    <?php endif; ?>
+
     <div class="row">
       <div class="col-md-3">
         <!-- profile brief -->
@@ -56,8 +63,8 @@
                     ?>
                     <li>
                       <a href="profile.php?username=<?php echo $curr_friend_request['username'];?>"><?php echo $curr_friend_request['username'];?></a> 
-                      <a class="text-success" href="#">[accept]</a> 
-                      <a class="text-danger" href="#">[decline]</a>
+                      <a class="text-success" href="php/accept-request.php?friend_id=<?php echo $curr_friend_request['id'];?>&friend_username=<?php echo $curr_friend_request['username'];?>">[accept]</a> 
+                      <a class="text-danger" href="php/decline-request.php?friend_id=<?php echo $curr_friend_request['id'];?>">[decline]</a>
                     </li>
                   <?php 
                   }
