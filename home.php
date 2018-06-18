@@ -95,7 +95,7 @@
         <div>
           <!-- post -->
           <?php 
-              $sql = "SELECT content, created_at, user_id, (SELECT COUNT(*) FROM friends WHERE user_id = {$_SESSION['user_id']} AND friend_id = posts.user_id) as is_friend FROM posts HAVING is_friend = 1 OR user_id = {$_SESSION['user_id']} ORDER BY created_at DESC";
+              $sql = "SELECT id, content, created_at, user_id, (SELECT COUNT(*) FROM friends WHERE user_id = {$_SESSION['user_id']} AND friend_id = posts.user_id) as is_friend FROM posts HAVING is_friend = 1 OR user_id = {$_SESSION['user_id']} ORDER BY created_at DESC";
               $result = $conn->query($sql);
 
               if($result->num_rows >0){
@@ -121,7 +121,7 @@
               <?php 
                 if($post['user_id'] == $_SESSION['user_id']){
                 ?>
-                  <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>">[delete]</a></span> 
+                  <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'];?>&username=<?php echo $_SESSION['user_username']?>&is_profile=false">[delete]</a></span> 
               <?php
                 }
               ?> 
