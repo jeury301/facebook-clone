@@ -61,7 +61,7 @@
           $is_friend_sql = "SELECT * FROM friends WHERE user_id = {$_SESSION['user_id']} AND friend_id = {$id}";
           $is_friend_result = $conn->query($is_friend_sql);
 
-          if($is_friend_result->num_rows > 0){
+          if($is_friend_result->num_rows > 0 or $id == $_SESSION['user_id']){
             ?>
             <!-- timeline -->
           <div>
