@@ -57,36 +57,50 @@
 
         <hr>
 
-        <!-- timeline -->
-        <div>
-           <!-- post -->
-          <?php 
-              $sql = "SELECT * FROM posts WHERE user_id = {$id} ORDER BY created_at DESC";
-              $result = $conn->query($sql);
+        <?php 
+          $is_friend_sql = "SELECT * FROM friends WHERE user_id = {$_SESSION['user_id']} AND friend_id = {$id}";
+          $is_friend_result = $conn->query($is_friend_sql);
 
-              if($result->num_rows >0){
-                  while($post = $result->fetch_assoc()){
-          ?>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <p><?php echo $post['content'];?></p>
+          if($is_friend_result->num_rows > 0){
+            ?>
+            <!-- timeline -->
+          <div>
+             <!-- post -->
+            <?php 
+                $sql = "SELECT * FROM posts WHERE user_id = {$id} ORDER BY created_at DESC";
+                $result = $conn->query($sql);
+
+                if($result->num_rows >0){
+                    while($post = $result->fetch_assoc()){
+            ?>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p><?php echo $post['content'];?></p>
+              </div>
+              <div class="panel-footer">
+                <span>posted <?php echo $post['created_at'];?> by <?php echo $username;?></span> 
+                <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>&username=<?php echo $username?>&is_profile=true">[delete]</a></span>
+              </div>
             </div>
-            <div class="panel-footer">
-              <span>posted <?php echo $post['created_at'];?> by <?php echo $username;?></span> 
-              <span class="pull-right"><a class="text-danger" href="php/delete-post.php?id=<?php echo $post['id'] ?>&username=<?php echo $username?>&is_profile=true">[delete]</a></span>
-            </div>
-          </div>
-          <?php 
+            <?php 
+                }
+              } else {
+            ?>
+            <p class="text-danger">No posts yet! </p>
+            <?php 
               }
-            } else {
-          ?>
-          <p class="text-danger">No posts yet! </p>
-          <?php 
-            }
-          ?>
-          <!-- ./post -->
-        </div>
-        <!-- ./timeline -->
+            ?>
+            <!-- ./post -->
+          </div>
+          <!-- ./timeline -->
+        <?php
+          } else {
+            ?>
+            <p>Only <strong><?echo $username;?>'s friends</strong> can see his/her posts!</p>
+        <?php
+          }
+        ?>
+        
       </div>
       <div class="col-md-3">
                 <!-- friends -->
