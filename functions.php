@@ -11,7 +11,7 @@
         // create connection
         $conn = new mysqli($db_server, $username, $password, $db_name);
         // check connection for errors
-        if ($conn->connection_error){
+        if ($conn->connect_error){
             die("Error: " . $conn->connect_error);
         }
         //echo '<h1 style="color: green;">Connected to db</h1>';
